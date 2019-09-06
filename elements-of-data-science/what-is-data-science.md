@@ -73,11 +73,26 @@ Given a training set, find approximation of the underlying function (that maps d
 
 ### Multivariate Linear Regression
 
-$x^2*\phi + w_0$
+- N explanatory variables with N>2
+- form: $y = w_0x_0 + w_1x_1 + w_2x_2 + ... + w_mx_m =\sum\limits_{i=0}^N w_ix_i$
+- sensitive to correlation between features
+- `sklearn.linear_model.LinearRegression`
 
-$f(x) = Φ(w^t * x)$
+### Logistic Regression
 
-$f(x) = \phi(w^t * x)$
+- uses an activation function to push the probability result to one of the two classes (true or false)
+  - sigmoid function maps negative infinity to 0 and positive infinity to 1, a probability outcome
+- form is a linear combination of all features: $z = w_0 + w_1x_1 + ... + w_nx_n$
+  - `z` can be any real number
+  - training data descends on actual numbers for `w0` through `wn`, which then are used to find an actual `z` for a new observation. That `z` is fed into sigmoid for a probability between 0 and 1
+- important: sensitive to outliers in training data
+- `sklearn.linear_model.LogisticRegression`
 
-i
-be
+### Linear Separability
+
+Can you separate the features in a linear fashion?
+
+- plot the observations on a scatter plot with the same number of dimensions as input variables (line for one, 2d for 2, 3d for 3) and output class is color
+- can a line be drawn to separate the output classes (colors)?
+
+![linear separability](pictures/linear-separability.png)
