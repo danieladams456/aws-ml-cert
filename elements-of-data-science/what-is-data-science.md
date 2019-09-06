@@ -9,7 +9,7 @@
 
 Given a training set, find approximation of the underlying function (that maps data attributes to target values) that best generalizes, or predicts, labels for new examples.
 
-# Types of Machine Learning
+## Types of Machine Learning
 
 - **Supervised**
   - true label provided, model learns from feedback of labels within training data set
@@ -25,7 +25,7 @@ Given a training set, find approximation of the underlying function (that maps d
 - **Reinforcement**
   - algorithm not told which answer is correct, but given reward or penalty based on performance
 
-# Key Issues in ML
+## Key Issues in ML
 
 ### Data Quality
 
@@ -51,7 +51,7 @@ Given a training set, find approximation of the underlying function (that maps d
   - corresponds to high variance - small change in training data leads to a big change in output
   - more common problem than underfitting
 
-# Machine Learning Methods: Linear Regression
+## Machine Learning Methods: Linear Regression
 
 ### Linear Methods
 
@@ -77,6 +77,8 @@ Given a training set, find approximation of the underlying function (that maps d
 - form: $y = w_0x_0 + w_1x_1 + w_2x_2 + ... + w_mx_m =\sum\limits_{i=0}^N w_ix_i$
 - sensitive to correlation between features
 - `sklearn.linear_model.LinearRegression`
+
+## Machine Learning Methods: Logistic Regression
 
 ### Logistic Regression
 
