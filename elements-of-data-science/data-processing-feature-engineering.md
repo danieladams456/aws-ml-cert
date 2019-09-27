@@ -88,4 +88,8 @@ Types of categorical variables
 - `sklearn PolynomialFeatures`
   - creates a^2, ab, b^2, etc and adds as new features
 - if you have polynomial features in your final model, check for overfitting
-- nonpolynomial features available like `log` and `sigmoid`
+  - it might fit the train data, but if it tries to predict data in the range it hasn't seen, it will likely peel off in an incorrect direction
+- non-polynomial features available like `log` and `sigmoid`, radial functions used in support vector machines algorithms
+- text based features
+  - "bag of words" model most common: doesn't keep track of order of words
+  - Inverse Document Frequency can be used to filter out common words like "the"
