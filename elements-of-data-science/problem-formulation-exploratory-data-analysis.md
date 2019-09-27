@@ -68,3 +68,48 @@ Sampling and Treatment Assignment
 - random assignment within the sample needed to establish causation. If there is a correlation in the results under non-random assignment, it could be the other assigning factors that influenced the results.
 
 ![sampling and treatment assignment](pictures/sampling-treatment-assignment.png)
+
+## Exploratory Data Analysis (EDA)
+
+Iterative process to get to know the data and its relationships better
+
+![ML pipeline](pictures/ml-pipeline.png)
+
+- Domain Knowledge
+  - Domain knowledge helps you figure what the relevant data is: most important features, what data is missing
+- Data Schema
+  - S3 is the collection point (redshift, glacier, dynamodb, RDS, CSV) which then can feed on to Sagemaker
+  - merging data can be complicated when values are missing
+
+### Statistics
+
+- Dimensions: instances = rows, attributes = columns
+- Univariate attribute statistics
+  - numeric: mean, variance, `df.describe()`, histogram
+  - categorical: number of unique values, most/least frequent values, percentages of observations, histogram
+  - target/label/response: similar methods, categorical look at count of unique and see if it is balanced
+- Multivariate statistics
+  - scatter matrix
+    - `pd.scatter_matrix(df[['col1','col2','col3']], figsize=(15,15))`
+    - can do different colors in a scatter plot highlighting different target classes
+  - contingency tables/cross tabulation
+- [Correlation](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient)
+  - correlation matrix gives a number in range [-1,1] with 0 as no correlation
+  - this just measures linear correlation, not other types of relationships
+  - generally easiest to view in color coded heat map
+
+### Data Issues
+
+- Messy
+  - unstructured needs to be put through cleansing
+  - observations on different scales: some in miles and others in km
+  - mixed type data: each feature must be put in its own column: 5:40:27 vs 320 MB/s
+- Noisy
+- Biased
+  - when data was created, there was something preventing a representative sample from being gathered
+    - certain types people might not want to answer certain questions on surveys, will be under-represented
+    - we don't know how loans turned out that we didn't get
+- Imbalanced
+  - can cause the model to overwhelmingly pick the class that had more observations
+- Correlated
+  - hard to know which feature to attribute significance to - [collinearity](https://en.wikipedia.org/wiki/Multicollinearity)
