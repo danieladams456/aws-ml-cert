@@ -85,9 +85,53 @@
       - use [cross-validation](https://towardsdatascience.com/cross-validation-in-machine-learning-72924a69872f) ("k-fold" and "holdout method")
       - separate training data into chunks (just say 5 of 20%). One chunk is the validation data set, but try 5x and use a different one each time
 
-## Bias Variance Tradeoff
+![train, validate, test data sets](pictures/train-validate-test-data-sets.png)
+
+## Model Tuning: Bias Variance Tradeoff
 
 - [Towards Data Science](https://towardsdatascience.com) articles
   - [Regularization](https://towardsdatascience.com/regularization-in-machine-learning-76441ddcf99a)
   - [Balancing Bias and Variance](https://towardsdatascience.com/balancing-bias-and-variance-to-control-errors-in-machine-learning-16ced95724db)
   - [Cross-Validation](https://towardsdatascience.com/cross-validation-in-machine-learning-72924a69872f)
+- definitions
+  - total error (x) = bias^2 + variance + irreducible error
+  - bias: "systematic different between true model and estimated model"
+  - variance: "given a data point, what is the range of response I would get back from the model"
+- results
+  - high bias: indication of under-fitting since the model isn't lining up with the real values
+  - high variance: indication of over-fitting since small change in input leads to a large change in output
+- "total test error"
+  - variance + bias ^2
+  - want to minimize this
+
+![total test error](pictures/bias-variance-tradeoff.png)
+
+- using learning curves to evaluate the model
+  - detect if model is under or over fitting
+  - also can show the impact of training data size to see if you can train in smaller batches or need more data (when convergence slows down)
+
+![learning curves](pictures/learning-curves.png)
+
+## Model Tuning: Error Analysis
+
+- types
+  - classification: easy to use confusion matrix to look at which ones went wrong and in what ways
+  - regression: need to analyze residuals (difference between actual and predicted), look at outliers, which direction it is wrong more often, etc
+- common problems
+  - data problems (standardize variants of a word)
+  - labeling errors
+  - under or over-representation of a class
+
+## Model Tuning: Regularization
+
+- motivation
+  - lots of features make it into the models, leads to overfitting
+  - regularization: add penalty score into the const function for complexity
+- types
+  - can calculate penalty by the sum of the absolute value weights of each feature
+    - **important**: each variable must be scaled to the same scale, i.e. 0-1. This makes the weights be on an even playing field
+  - cost function combines MSE (mean squared error) and the penalty term
+  - linear regression example:
+    - L1 = abs value of weight, can be used to drop out terms
+    - L2 = square of weight, generally don't drop out, but will decrease weight of unimportant terms
+  - regularization strength `alpha` adjusts the weight between MSE and the regularization penalty
