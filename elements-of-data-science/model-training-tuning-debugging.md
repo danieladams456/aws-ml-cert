@@ -66,3 +66,28 @@
   - randomly select subset of training data (both observations and features) to create multiple trees
   - use majority voting to pick label
   - more expensive to train since training potentially 100s of trees
+
+## Model Training: Validation Set
+
+- features, model selection, and hyperparameter tuning are an iterative process
+- tuning goals
+  - detect if overfitting or underfitting
+  - find any special cases where the model gives inaccurate results
+- **Testing Data != Validation Data**
+  - training data + testing data = whole
+  - training data further split down into training set and validation set
+    - your iterative model selection and model tuning target improvements in the validation set
+    - this can lead to overfitting towards the validation set
+    - keeping the testing data until the very end and using it only once lets you test true generalization of the model
+  - problems
+    - in small data sets, your validation data set might be too small to be representative, or your training data set might be too small to train on
+    - solution
+      - use [cross-validation](https://towardsdatascience.com/cross-validation-in-machine-learning-72924a69872f) ("k-fold" and "holdout method")
+      - separate training data into chunks (just say 5 of 20%). One chunk is the validation data set, but try 5x and use a different one each time
+
+## Bias Variance Tradeoff
+
+- [Towards Data Science](https://towardsdatascience.com) articles
+  - [Regularization](https://towardsdatascience.com/regularization-in-machine-learning-76441ddcf99a)
+  - [Balancing Bias and Variance](https://towardsdatascience.com/balancing-bias-and-variance-to-control-errors-in-machine-learning-16ced95724db)
+  - [Cross-Validation](https://towardsdatascience.com/cross-validation-in-machine-learning-72924a69872f)
