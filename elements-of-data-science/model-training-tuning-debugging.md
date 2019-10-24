@@ -135,3 +135,73 @@
     - L1 = abs value of weight, can be used to drop out terms
     - L2 = square of weight, generally don't drop out, but will decrease weight of unimportant terms
   - regularization strength `alpha` adjusts the weight between MSE and the regularization penalty
+
+## Hyperparameter Tuning
+
+- definition: an external configuration whose value cannot be estimated from the data
+  - things like learning rate, number of trees in a random forest, etc
+- techniques
+  - grid search: make N dimensional grid and try them all. Very compute intensive
+  - random search: just what it sounds like 😄
+  - Sagemaker uses bayesian search to automatically stochastically find a local max (hopefully close to full max)
+- takes knowledge of good ranges for this algorithm related to the characteristics of a data set
+
+## Model Tuning: Training Data Tuning
+
+- training data issues
+  - too small (too much overfitting): sample or label more
+  - biased/missing scenarios: need to get those scenarios
+  - example: fraud detection
+    - have a lot less fraud than normal transactions
+    - can duplicate observations to generate more data
+    - use **SMOTE** to generate synthetic data points with the major features
+      - > synthetic minority oversampling technique
+      - can under-sample on the majority class and over-sample the minority
+      - training data doesn't need to be representative of the real world, but _testing data needs to be real_
+- dimensionality reduction
+  - automatic feature creation available (pandas `get_dummies`, polynomial/interactions, etc) that can create hundreds of new features
+  - having too many features can make the model too flexible and can over-fit
+    - some algorithms also can't handle high dimensionality sparse data like K nearest neighbor
+  - want to find the most significant features
+
+## Model Tuning: Feature Extraction
+
+- mapping the data to smaller number of features that retains the majority of the information
+- principal component analysis (PCA)
+  - linear relationships
+  - just looks at features, not target/label
+  - looks for highest variance direction in N dimensional space, then next one orthogonal to that, and so on
+  - just say first 4 out of 10 features explain 90% of the variance, then we might just stick with those
+- kernel PCA
+  - do a non-linear transformation that changes the data into a linear relationship to do PCA on
+  - example below: function of distance from center
+
+![kernel PCA](pictures/kernel-pca.png)
+
+## Model Tuning: Feature Selection
+
+- linear discriminant analysis (LDA)
+  - supervised linear approach to feature extraction
+  - transforms to subspace that maximizes separability
+    - as a feature extraction tool, max features is number of classes - 1
+  - assumptions
+    - data is normally distributed
+    - different classes share same covariance
+  - [different from SVM](https://stats.stackexchange.com/questions/243932/what-is-the-difference-between-svm-and-lda/243947)
+    - SVM does not make those assumptions
+
+## Model Tuning: Bagging/Boosting
+
+- use subset of rows/features in random fashion
+- **bagging** (bootstrap aggregation)
+  - create x data sets of size m (random rows, rows can be selected more than once per data set)
+  - subset of features
+  - train each model, validation set is rows that weren't selected
+  - combine several weak learners through average (regression) or voting (classification)
+  - can help with models that have high variance and low bias, decreasing over-fitting problem
+- **boosting**
+  - assign strengths to each weak learner
+  - iteratively train weak learners by training them on the misclassified observations of the previous weak learners
+    - try model 1, if it fails train model 2 with that
+  - helps with models that have high bias and need more explaining power
+  - common algorithm is `XGBoost`, does well on most tabular data
