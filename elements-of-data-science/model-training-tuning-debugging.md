@@ -189,6 +189,9 @@
     - different classes share same covariance
   - [different from SVM](https://stats.stackexchange.com/questions/243932/what-is-the-difference-between-svm-and-lda/243947)
     - SVM does not make those assumptions
+- vs feature extraction
+  - selection only removes features
+  - extraction combines features into new ones, generally still after significance analysis end up with less than the original ones
 
 ## Model Tuning: Bagging/Boosting
 
