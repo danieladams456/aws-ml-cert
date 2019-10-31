@@ -86,7 +86,58 @@
     - as sample size goes up, average over the sample will approach the mean of any distribution
     - plot the frequency graph of many samples at that size, and the result is a normal distribution
     - as the sample size goes up (1000 observations of the mean of sample size 4 vs 1000 observations of the mean of sample size 8), standard deviation shrinks
-- confidence internval
+- confidence interval
   - quantifies margin of error between prediction and true metric due to sampling randomness
   - [if true distribution is as stated], there is `x`% confidence that the metric lies within the interval
   - Z-score: the confidence interval (commonly .90 .95 .98 .99) translated into standard deviations
+  - there exists formula for confidence interval of a proportion (80% of our users will do this)
+
+## ML Models in Production
+
+- deploy to production
+  - A/B testing can help with both model validation as well as technical issues
+  - [Martin Zinkevich Rules of Machine Learning](https://developers.google.com/machine-learning/guides/rules-of-ml)
+- consider information security issues at the beginning of the project
+  - model should be at the same classification level as the data it is derived from
+- monitoring and maintenance
+  - data availability can change over time (external training data sets, features)
+  - software environment may change (python versions/packages)
+  - high profile special cases may fail (i.e. Black Friday)
+  - can be change in business goals (false positive vs false negative tolerance)
+- performance deterioration
+  - always be on the lookout for performance decreases so you can adjust
+  - your validation/test data sets may need to be replaced over time as things change (new trends in business domain, mix of population)
+  - if business problem change is big enough, it might require feature selection or algorithm change
+
+## ML on AWS
+
+- Sagemaker
+  - full lifecycle build/train/deploy
+  - managed notebook hosting
+  - contains optimized models
+- AWS pre-trained services
+  - Amazon Rekognition image and video (trained on Amazon Prime Photos billions of images daily)
+    - can still fine-tune for your specific application
+  - Lex for speech recognition and language understanding
+  - Polly for text to speech
+  - Comprehend for text classification
+  - Translate for language translation
+- Other ecosystem
+  - AWS Glue ETL
+  - [DSSTNE](https://github.com/amzn/amazon-dsstne) for help training deep neural networks
+
+## Common ML Mistakes
+
+- you solved the wrong problem!
+  - can be hard to map original business objective into ML problem
+  - requires a lot of interaction between data science and business team
+- data was flawed
+  - quality not good enough
+  - not the right data
+  - big data != good data
+- production performance doesn't match prototype
+- takes too long to fail
+  - data scientist has to be honest to leadership and say if a specific ML project is not going to work
+  - earlier you stop a failing project the better
+- don't use too complicated of a model
+  - if two models give similar results, go for the simpler model
