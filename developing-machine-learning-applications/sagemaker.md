@@ -66,3 +66,14 @@
   - also works with custom algorithms since can work as a black box
 
 ![sagemaker hyperparameter search](./pictures/sagemaker-hyperparameter-search.png)
+
+## SageMaker Spark
+
+- Spark local on SageMaker instance or on EMR
+- [Sagemaker-Spark SDK](https://github.com/aws/sagemaker-spark)
+- Spark MLLib Classes
+  - Input Data: `DataFrame`
+  - Algorithm: `Estimator`
+  - Model: `Model`
+- Spark interface creates the Sagemaker training job, model, endpoint configuration, and endpoint in `fit()` method
+- `transform()` method generates the predictions
